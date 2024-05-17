@@ -2,12 +2,12 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
-const Login = require("./models/login");
 const Register = require("./models/signup.js");
 const session = require("express-session");
 const dotenv = require('dotenv').config();
 const jwt = require("jsonwebtoken");
 const flash = require("connect-flash"); 
+const bcrypt = require("bcrypt");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -65,12 +65,14 @@ app.post("/registration", async (req, res) => {
     try{
         let existingUser = await Register.findOne({username: username, email: email});
         if(existingUser){
-            req.flash("error", "that user can already register please try to Login")
-            return res.redirect("/login")
+            
+            console.log("user can alredy register");
+            return res.redirect("/login");
         }
         let user = await Register.create({username, email, password});  
         const token = createToken(Register._id);
         res.cookie(username, token, { httpOnly: true, maxAge: maxAge * 1000});
+        req.flash("error", "that user can already register please try to Login")
         res.redirect("/login");
     }
     catch(err){
@@ -80,16 +82,36 @@ app.post("/registration", async (req, res) => {
 
 app.get("/login", (req, res) => {
     res.render("login.ejs");
-})
+});
 
-app.post("/login", (req, res) => {
-    let {email, password} = req.body;
-    console.log(email, password);
-    res.send("login successfully"); 
-})
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await Register.findOne({ email: email });
+        if (!user) {
+            console.log('User not found. Please register first.');
+            return res.redirect('/registration'); 
+        } 
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            console.log('Invalid password.');
+            return res.redirect('/login'); 
+        }
+
+        console.log('Login successful.');
+        return res.redirect('/');
+    } catch (err) {
+        console.error('Error during login:', err);
+        return res.status(500).send('Internal server error');
+    }
+});
 
 app.get("/", (req, res) => {
-    res.send("well"); 
+    const user = req.session;
+    console.log(user);
+    res.render("index.ejs", {user: user}); 
 })
 
 const PORT = 3000;
