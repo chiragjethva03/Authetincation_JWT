@@ -8,13 +8,12 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+    
     <div class="home">
-        <% if (user) { %>
-            <a class="btn-danger btn" href="/logout">Logout</a>
-        <% } else { %>
+        <%= success %>
             <a class="btn btn-primary" href="/login">Login</a>
             <a class="btn btn-secondary" href="/registration">Signup</a>
-        <% } %>
+      
     </div>
 </body>
 </html>
