@@ -39,14 +39,14 @@ async function main() {
 }
 //for the cookie passing 
 app.use(session(sessionOption));
-// app.use(flash());
+app.use(flash());
 
-// app.use((req, res, next) => {
-//     res.locals.success = req.flash("success");
-//     res.locals.error = req.flash("error");
-//     res.locals.currUser = req.user;
-//     next();
-// });
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    res.locals.currUser = req.user;
+    next();
+});
 
 const maxAge = 2 * 30 * 60 * 60;
 const createToken = (id) => {
@@ -65,7 +65,7 @@ app.post("/registration", async (req, res) => {
     try{
         let existingUser = await Register.findOne({username: username, email: email});
         if(existingUser){
-            // req.flash("error", "that user can already register please try to Login")
+            req.flash("error", "that user can already register please try to Login")
             return res.redirect("/login")
         }
         let user = await Register.create({username, email, password});  
