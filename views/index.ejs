@@ -8,12 +8,20 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    
+    <%= error %>
     <div class="home">
         <%= success %>
-            <a class="btn btn-primary" href="/login">Login</a>
-            <a class="btn btn-secondary" href="/registration">Signup</a>
-      
+        <a class="btn btn-primary" href="/login">Login</a>
+        <a class="btn btn-secondary" href="/registration">Signup</a>
+        <a class="btn btn-secondary" href="/logout">Logout</a>
+            <!-- <% if(user) {%>
+                <a class="btn btn-secondary" href="/logout">Logout</a>
+            <% } %>
+            <% if(!user) {%>
+                <a class="btn btn-primary" href="/login">Login</a>
+                <a class="btn btn-secondary" href="/registration">Signup</a>
+            <% } %> -->
+        
     </div>
 </body>
 </html>

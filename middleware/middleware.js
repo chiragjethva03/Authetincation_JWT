@@ -1,22 +1,10 @@
-const dotenv = require('dotenv').config();
-const jwt = require("jsonwebtoken");
+const flash = require("connect-flash"); 
 
-const requireAuth = (req, res, next) => {
-    const token = req.cookies.jwt;
-    if(token){
-        jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
-            if(err){
-                console.log(err.message);
-                res.redirect("/login");
-            } else {
-                console.log(decodedToken);
-                next();
-            }
-        });
-    }
-    else{
-        res.redirect("/login");
-    }
+const flashMessage = (req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    res.locals.currUser = req.user;
+    next();
 }
 
-module.exports = { requireAuth }; 
+module.exports = flashMessage;
