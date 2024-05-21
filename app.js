@@ -5,12 +5,17 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("connect-flash"); 
 const userRouter = require("./routes/user.js");
+const resultRouter = require("./routes/result.js");
 const jwt = require("jsonwebtoken");
+const methodOverride = require("method-override");
+const requireAuthentication = require("./middleware.js");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended: true}));
+app.use(methodOverride("_method"));
+// app.use(requireAuthentication());
 
 
 //store session 
@@ -50,6 +55,8 @@ app.use((req, res, next) => {
 
 //Routers
 app.use("/", userRouter);
+app.use("/", resultRouter)
+
 app.get("/", (req, res) => {
     const user = req.session.cookie;
     res.render("index.ejs", {user});    

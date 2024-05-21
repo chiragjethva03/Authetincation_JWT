@@ -12,7 +12,7 @@ const createToken = (id) => {
 }
 
 module.exports.get_Registration = (req, res) => {
-    res.render("registration.ejs");
+    res.render("registration.ejs"); 
 }
 
 module.exports.post_Registration = async (req, res) => {

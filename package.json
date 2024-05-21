@@ -18,6 +18,7 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "jsonwebtoken": "^9.0.2",
+    "method-override": "^3.0.0",
     "mongoose": "^8.3.5",
     "nodemon": "^3.1.0"
   }
