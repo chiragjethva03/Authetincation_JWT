@@ -49,3 +49,25 @@ table{
 .buttons{
     margin: 0.5rem;
 }
+
+.paswords{
+    margin: 1rem;
+    padding: 0.5rem;
+}
+
+.paswords a{
+    margin: 1rem;
+}
+.he{
+    height: 2rem !important;
+}
+
+img{
+    height: 300px;
+    width: 400px;
+}
+
+.nav-item{
+    display: flex;
+    margin: 1rem;
+}

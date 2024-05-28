@@ -7,11 +7,8 @@ module.exports.create = (req, res) => {
 
 module.exports.post_create = async (req, res) => {
     let {name, subject1, marks1, subject2, marks2, subject3, marks3, subject4, marks4} = req.body;
-    console.log(name, subject1,marks1, subject2, marks2, subject3, marks3, subject4, marks4);
-
     let final = await Result.create({name, subject1, marks1, subject2, marks2, subject3, marks3, subject4, marks4});
-
-    console.log(final);
+    
     res.redirect("/read");
 }
 

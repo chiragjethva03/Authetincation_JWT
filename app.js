@@ -3,19 +3,29 @@ const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const flash = require("connect-flash"); 
+const flash = require("connect-flash");
+
 const userRouter = require("./routes/user.js");
 const resultRouter = require("./routes/result.js");
-const jwt = require("jsonwebtoken");
+
 const methodOverride = require("method-override");
-const requireAuthentication = require("./middleware.js");
+const dotenv = require("dotenv").config();
+const cookieParser = require('cookie-parser');
+const multer = require("multer");
+const { storage } = require("./cloudConfig.js");
+const upload = multer({ storage });
+const ejsMate = require("ejs-mate");
+
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.engine('ejs', ejsMate);
+
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-// app.use(requireAuthentication());
+app.use(cookieParser());
+
 
 
 //store session 
@@ -30,14 +40,13 @@ const sessionOption = {
     }
 }
 
-
 main()
     .then(() => {
         console.log("connections Established");
     })
     .catch(err => console.log(err));
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/jwt_authentication');
+    await mongoose.connect('mongodb://127.0.0.1:27017/jwt_authentication');
 }
 
 //for the cookie passing 
@@ -55,12 +64,12 @@ app.use((req, res, next) => {
 
 //Routers
 app.use("/", userRouter);
-app.use("/", resultRouter)
+app.use("/", resultRouter);
+
 
 app.get("/", (req, res) => {
-    const user = req.session.cookie;
-    res.render("index.ejs", {user});    
-})
+    res.render("index.ejs");
+});
 
 const PORT = 3000;
 app.listen(PORT, () => {

@@ -1,0 +1,18 @@
+<% layout("/layout/boilerplate") -%>
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for(let find of finded){ %>
+        <div class="card" style="width: 18rem; margin: 2rem;">
+            <img src="<%= find.link %>" class="card-img-top" alt="image not found">
+            <div class="card-body">
+              <h5 class="card-title">Name :<%= find.productname %></h5>
+              <p class="card-text">categories: <%= find.categories %></p>
+              <p class="card-text">Description: <%= find.Description %></p>
+              <h3>Price : <%= find.price %></h3>
+              <a href="/<%= find._id %>/edit-product" class="btn btn-primary">Edit</a>
+
+              <form action="/<%= find._id %>/delete-product?_method=DELETE" method="post">
+                <button class="btn btn-danger">Delete</button>
+            </form>
+            </div>
+          </div>
+    <% } %>

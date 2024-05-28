@@ -13,10 +13,20 @@
 
 <body>
     <%= error %>
-    <div class="deskbordbutton">
-        <a href="/create" class="btn btn-primary">Create a new result</a>
-    <a href="/" class="btn btn-primary">Back to Home</a>
-    </div>
+    <nav class="navbar navbar-expand-sm" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="/create">Create a new result</a>
+              <a class="nav-link" href="/">Back to Home</a>
+              <a class="nav-link" href="/file">store files</a>
+            </div>
+          </div>
+        </div>
+    </nav>
     <% for(let marks of read){ %>
         <div class="readsfromDB">
             <h2>Student Name: <%= marks.name %></h2>

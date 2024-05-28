@@ -11,17 +11,33 @@
     <%= error %>
     <div class="home">
         <%= success %>
-        <a class="btn btn-primary" href="/login">Login</a>
-        <a class="btn btn-secondary" href="/registration">Signup</a>
-        <a class="btn btn-secondary" href="/logout">Logout</a>
-        <a class="btn btn-primary" href="/read">Deskbord</a>
-            <!-- <% if(user) {%>
-                <a class="btn btn-secondary" href="/logout">Logout</a>
-            <% } %>
-            <% if(!user) {%>
-                <a class="btn btn-primary" href="/login">Login</a>
-                <a class="btn btn-secondary" href="/registration">Signup</a>
-            <% } %> -->
+        <nav class="navbar navbar-expand-sm" style="background-color: #e3f2fd;">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/login">Login</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/registration">Registration</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/read">Deskbord</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/get-eccomerce">E-commerce Product API</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </nav>
+
         
     </div>
 </body>
